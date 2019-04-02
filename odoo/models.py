@@ -543,7 +543,8 @@ class BaseModel(MetaModel('DummyModel', (object,), {'_register': False})):
 
             cls._sql_constraints += base._sql_constraints
 
-        cls._sequence = cls._sequence or (cls._table + '_id_seq')
+        # decodio mod: use one sequence for all models!!
+        cls._sequence = cls._sequence or 'ir_serial_id_seq' # (cls._table + '_id_seq')
         cls._constraints = list(cls._constraints.values())
 
         # update _inherits_children of parent models
@@ -2384,6 +2385,7 @@ class BaseModel(MetaModel('DummyModel', (object,), {'_register': False})):
 
         if self._auto:
             if must_create_table:
+                # BOLE: check if it is transient!!!
                 tools.create_model_table(cr, self._table, self._description)
 
             if self._parent_store:

@@ -63,18 +63,18 @@ def _initialize_db(id, db_name, demo, lang, user_password, login='admin', countr
 
         with closing(db.cursor()) as cr:
             env = odoo.api.Environment(cr, SUPERUSER_ID, {})
-
+            my_company = env.ref('base.main_company')
             if lang:
                 modules = env['ir.module.module'].search([('state', '=', 'installed')])
                 modules._update_translations(lang)
 
             if country_code:
                 country = env['res.country'].search([('code', 'ilike', country_code)])[0]
-                env['res.company'].browse(1).write({'country_id': country_code and country.id, 'currency_id': country_code and country.currency_id.id})
+                my_company.write({'country_id': country_code and country.id, 'currency_id': country_code and country.currency_id.id})
             if phone:
-                env['res.company'].browse(1).write({'phone': phone})
+                my_company.write({'phone': phone})
             if '@' in login:
-                env['res.company'].browse(1).write({'email': login})
+                my_company.write({'email': login})
 
             # update admin's password and lang and login
             values = {'password': user_password, 'lang': lang}

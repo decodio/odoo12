@@ -48,7 +48,8 @@ def table_kind(cr, tablename):
 
 def create_model_table(cr, tablename, comment=None):
     """ Create the table for a model. """
-    cr.execute('CREATE TABLE "{}" (id SERIAL NOT NULL, PRIMARY KEY(id))'.format(tablename))
+    #cr.execute('CREATE TABLE "{}" (id SERIAL NOT NULL, PRIMARY KEY(id))'.format(tablename))
+    cr.execute('CREATE TABLE "{}" (id BIGSERIAL NOT NULL, PRIMARY KEY(id))'.format(tablename))
     if comment:
         cr.execute('COMMENT ON TABLE "{}" IS %s'.format(tablename), (comment,))
     _schema.debug("Table %r: created", tablename)

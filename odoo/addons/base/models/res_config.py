@@ -336,7 +336,7 @@ class ResConfigSettings(models.TransientModel, ResConfigModuleInstallationMixin)
         To make such a 'settings' wizard, define a model like::
 
             class MyConfigWizard(models.TransientModel):
-                _name = 'my.settings'
+           --> remove this !!! not for 12     _name = 'my.settings'
                 _inherit = 'res.config.settings'
 
                 default_foo = fields.type(..., default_model='my.model'),

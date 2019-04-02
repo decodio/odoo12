@@ -1172,7 +1172,7 @@ class Boolean(Field):
 
 class Integer(Field):
     type = 'integer'
-    column_type = ('int4', 'int4')
+    column_type = ('int8', 'int8')
     _slots = {
         'group_operator': 'sum',
     }
@@ -1212,7 +1212,7 @@ class Float(Field):
                    cursor and returning a pair (total, decimal)
     """
     type = 'float'
-    column_cast_from = ('int4', 'numeric', 'float8')
+    column_cast_from = ('int8', 'numeric', 'float8')
     _slots = {
         '_digits': None,                # digits argument passed to class initializer
         'group_operator': 'sum',
@@ -1886,7 +1886,7 @@ class Selection(Field):
         if (self.selection and
                 isinstance(self.selection, list) and
                 isinstance(self.selection[0][0], int)):
-            return ('int4', 'integer')
+            return ('int8', 'integer')
         else:
             return ('varchar', pg_varchar())
 
@@ -1949,7 +1949,8 @@ class Selection(Field):
     def convert_to_cache(self, value, record, validate=True):
         if not validate:
             return value or False
-        if value and self.column_type[0] == 'int4':
+        #if value and self.column_type[0] == 'int4':
+        if value and self.column_type[0] in ('int4', 'int8'):
             value = int(value)
         if value in self.get_values(record.env):
             return value
@@ -2069,7 +2070,7 @@ class Many2one(_Relational):
     fields or field extensions.
     """
     type = 'many2one'
-    column_type = ('int4', 'int4')
+    column_type = ('int8', 'int8')
     _slots = {
         'ondelete': 'set null',         # what to do when value is deleted
         'auto_join': False,             # whether joins are generated upon search
@@ -2819,7 +2820,7 @@ class Many2many(_RelationalMulti):
 class Id(Field):
     """ Special case for field 'id'. """
     type = 'integer'
-    column_type = ('int4', 'int4')
+    column_type = ('int8', 'int4')
     _slots = {
         'string': 'ID',
         'store': True,

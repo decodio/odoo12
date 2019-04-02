@@ -84,7 +84,7 @@ class Registry(Mapping):
                     # This should be a method on Registry
                     try:
                         odoo.modules.load_modules(registry._db, force_demo, status, update_module)
-                    except Exception:
+                    except Exception as E:
                         odoo.modules.reset_modules_state(db_name)
                         raise
                 except Exception:
@@ -293,6 +293,7 @@ class Registry(Mapping):
         models = [env[model_name] for model_name in model_names]
 
         for model in models:
+            # add transient part ... not know later
             model._auto_init()
             model.init()
 

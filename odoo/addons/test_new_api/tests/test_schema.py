@@ -156,7 +156,7 @@ class TestSchema(common.TransactionCase):
             'table_name': u'test_new_api_category',
             'table_schema': u'public',
             'udt_catalog': self.cr.dbname,
-            'udt_name': u'int4',
+            'udt_name': u'int8',
             'udt_schema': u'pg_catalog',
         })
 
@@ -453,7 +453,7 @@ class TestSchema(common.TransactionCase):
             'table_name': u'test_new_api_mixed',
             'table_schema': u'public',
             'udt_catalog': self.cr.dbname,
-            'udt_name': u'int4',
+            'udt_name': u'int8',
             'udt_schema': u'pg_catalog',
         })
         foreign_keys = self.get_foreign_keys(model._table)
@@ -504,7 +504,7 @@ class TestSchema(common.TransactionCase):
                 'table_name': u'test_new_api_discussion_category',
                 'table_schema': u'public',
                 'udt_catalog': self.cr.dbname,
-                'udt_name': u'int4',
+                'udt_name': u'int8',
                 'udt_schema': u'pg_catalog',
             },
             field.column2: {
@@ -522,7 +522,7 @@ class TestSchema(common.TransactionCase):
                 'table_name': u'test_new_api_discussion_category',
                 'table_schema': u'public',
                 'udt_catalog': self.cr.dbname,
-                'udt_name': u'int4',
+                'udt_name': u'int8',
                 'udt_schema': u'pg_catalog'
             },
         })
